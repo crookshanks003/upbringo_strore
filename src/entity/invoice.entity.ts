@@ -1,6 +1,12 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import {Field, ObjectType} from "type-graphql";
+import {Field, ObjectType, registerEnumType} from "type-graphql";
 import { Item } from "./item.entity";
+
+export enum InvoiceStatus {
+	PAID="paid",
+	UNPAID="unpaid",
+}
+registerEnumType(InvoiceStatus, {name: "InvoiceStatus"});
 
 @ObjectType()
 @Entity()
@@ -28,4 +34,8 @@ export class Invoice {
 	@Field()
 	@Column()
 	total_amount: number;
+
+	@Field(() => InvoiceStatus)
+	@Column({default: InvoiceStatus.UNPAID})
+	status: InvoiceStatus;
 }

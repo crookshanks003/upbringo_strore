@@ -1,14 +1,13 @@
-import { IsEmail, IsNumberString, IsString, Length } from "class-validator";
-import { ArgsType, Field } from "type-graphql";
+import { IsEmail, IsNumberString, Length } from "class-validator";
+import { Store } from "../../entity";
+import { Field, InputType } from "type-graphql";
 
-@ArgsType()
-export class CreateStoreDto {
+@InputType()
+export class CreateStoreDto implements Partial<Store> {
 	@Field()
-	@IsString()
 	name: string;
 
 	@Field()
-	@IsString()
 	address: string;
 
 	@Field()

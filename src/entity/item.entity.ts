@@ -11,6 +11,10 @@ export class Item {
 
 	@Field()
 	@Column()
+	name: string;
+
+	@Field()
+	@Column()
 	quantity: number;
 
 	@Field()

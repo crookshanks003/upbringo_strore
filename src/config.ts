@@ -7,7 +7,8 @@ export function getConfig() {
 		!process.env.DB_USER ||
 		!process.env.DB_HOST ||
 		!process.env.DB_PASSWORD ||
-		!process.env.DB_NAME
+		!process.env.DB_NAME ||
+		!process.env.PORT
 	) {
 		throw new Error("Config is either missing or incomplete");
 	}
@@ -16,5 +17,6 @@ export function getConfig() {
 		DB_PASSWORD: process.env.DB_PASSWORD,
 		DB_HOST: process.env.DB_HOST,
 		DB_NAME: process.env.DB_NAME,
+		PORT: process.env.PORT,
 	};
 }

@@ -31,7 +31,7 @@ export class StoreResolver {
 	}
 
 	@Mutation(() => Store)
-	async addStore(@Args() store: CreateStoreDto) {
+	async addStore(@Arg("store") store: CreateStoreDto) {
 		const existingStore = await this.storeRepo.findOne({
 			email: store.email,
 		});

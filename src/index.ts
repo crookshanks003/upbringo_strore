@@ -38,7 +38,7 @@ async function main() {
 						...(err.originalError as Object),
 						code: "INVALID_INPUT",
 					};
-				} else {
+				} else if (err.extensions) {
 					extensions = err.extensions;
 				}
 				return { message: err.message, path: err.path, extensions };
@@ -47,8 +47,8 @@ async function main() {
 		})
 	);
 
-	app.listen(4000, () => {
-		console.log("visit http://localhost:4000/graphql");
+	app.listen(config.PORT, () => {
+		console.log(`visit http://localhost:${config.PORT}/graphql`);
 	});
 }
 
