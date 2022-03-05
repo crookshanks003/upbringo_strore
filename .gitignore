@@ -4,3 +4,4 @@ build
 .env
 yarn-error.log
 ormconfig.json
+README.txt

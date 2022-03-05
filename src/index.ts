@@ -16,6 +16,7 @@ async function main() {
 		username: config.DB_USER,
 		password: config.DB_PASSWORD,
 		database: config.DB_NAME,
+		port: 3306,
 		entities: [Store, Item, Invoice],
 	});
 
