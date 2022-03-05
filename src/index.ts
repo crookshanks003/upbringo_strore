@@ -4,8 +4,8 @@ import express from "express";
 import cors from "cors";
 import { Invoice, Item, Store } from "./entity";
 import { graphqlHTTP } from "express-graphql";
-import { buildSchema } from "type-graphql";
-import { HelloResolver } from "./resolver/hello.resolver";
+import { ArgumentValidationError, buildSchema } from "type-graphql";
+import { resolvers } from "./resolver";
 
 async function main() {
 	const config = getConfig();
@@ -29,14 +29,26 @@ async function main() {
 		"/graphql",
 		graphqlHTTP({
 			schema: await buildSchema({
-				resolvers: [HelloResolver],
+				resolvers,
 			}),
+			customFormatErrorFn: (err) => {
+				let extensions;
+				if (err.originalError instanceof ArgumentValidationError) {
+					extensions = {
+						...(err.originalError as Object),
+						code: "INVALID_INPUT",
+					};
+				} else {
+					extensions = err.extensions;
+				}
+				return { message: err.message, path: err.path, extensions };
+			},
 			graphiql: true,
 		})
 	);
 
-	app.listen(5000, () => {
-		console.log("listening at http://localhost:5000");
+	app.listen(4000, () => {
+		console.log("visit http://localhost:4000/graphql");
 	});
 }
 
